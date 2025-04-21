@@ -1,0 +1,36 @@
+name: Update Dashboard Data
+
+on:
+  schedule:
+    # Run daily at 4:30 PM Eastern Time (20:30 UTC)
+    - cron: '30 20 * * 1-5'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
+      - name: Run data update script
+        run: python scripts/data_update.py
+        
+      - name: Commit and push updated data
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add app/data/
+          git commit -m "Update data - $(date)" || echo "No changes to commit"
+          git push
