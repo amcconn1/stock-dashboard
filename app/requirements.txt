@@ -1,4 +1,4 @@
-altair @ file:///C:/b/abs_0b1avjyzoc/croot/altair_1743016738596/work
+altair>=4.2.0
 attrs @ file:///C:/b/abs_89hmquz5ga/croot/attrs_1734533130810/work
 blinker @ file:///C:/b/abs_b1i87khtob/croot/blinker_1737448732095/work
 Bottleneck @ file:///C:/b/abs_816hr2khp1/croot/bottleneck_1731058648110/work
