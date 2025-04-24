@@ -341,34 +341,45 @@ complex financial metrics into clear, actionable insights.
 # === Methodology Section ===
 #with st.expander("Our Methodology", expanded=False):
 st.markdown("""
-# How We Calculate Composite Scores
-    
-Our approach integrates multiple analysis methods to provide a comprehensive view of investment opportunities:
-    
-1. **Fundamental Analysis (0-100)**: Evaluates financial health through metrics like:
-    - Revenue and growth trends
-    - Earnings per share (EPS)
-    - Price-to-earnings (P/E) ratio
-    - Debt-to-equity ratio
-       
-2. **Technical Analysis (0-100)**: Examines price and volume patterns using indicators like:
-    - Relative Strength Index (RSI)
-    - Moving averages (20-day and 50-day)
-    - Volume trends
-    - Bollinger Bands
-       
-3. **News Sentiment Analysis (0-100)**: Analyzes media coverage sentiment using natural language processing on financial news articles.
-    
-4. **Social Media Sentiment**: Provides additional context by analyzing discussions on Reddit and other platforms.
-    
-These components are weighted and combined to generate our composite score, with thresholds set at:
-- **Buy Signal**: Scores above 70
-- **Hold Signal**: Scores between 40-70
-- **Sell Signal**: Scores below 40
-    
-All models were validated using historical back-testing to ensure reliability and predictive value.
-""")
+### Methodology: How We Score
 
+#### 1. **Fundamental Analysis (0–100)**
+Scores are derived from:
+- Revenue growth and trends
+- Earnings Per Share (EPS)
+- P/E ratio and valuation metrics
+- Piotroski score for financial health
+       
+#### 2. **Technical Analysis (0–100)**
+Includes:
+- RSI (Relative Strength Index)
+- MACD (Moving Average Convergence Divergence)
+- ATR (Average True Range)
+- SMA (Simple Moving Averages)
+
+#### 3. **News Sentiment Analysis (0–100)**
+- NLP models applied to financial articles
+- Positive, neutral, and negative classifications
+- Volume of relevant articles
+
+#### 4. **Composite Score Calculation**
+A weighted average of:
+- Fundamental Score
+- Technical Score
+- News Sentiment Score
+
+> **Note:** Social sentiment is not directly included in the composite score but is displayed separately for context.
+
+### Signal Thresholds
+- **Buy**: Composite Score > 70
+- **Hold**: Score between 40–70
+- **Sell**: Score < 40
+
+### Validation & Data Sources
+- **Backtesting** against historical performance
+- **APIs**: Yahoo Finance, Polygon.io, Reddit (PRAW)
+
+"""
 
 # === Team Section ===
 st.markdown("## Meet The Team")

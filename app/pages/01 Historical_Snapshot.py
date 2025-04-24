@@ -11,7 +11,7 @@ st.set_page_config(page_title="Historical Snapshot | Stock Dashboard", layout="w
 @st.cache_data
 def load_data():
     try:
-        df = pd.read_csv("data/composite_score.csv")
+        df = pd.read_csv("https://drive.google.com/uc?id=1-2rHajs3BynUMsR9ljXVBZ0P4AvwKbZE")
         df["date"] = pd.to_datetime(df["date"])
         return df.sort_values("date")
     except Exception as e:
@@ -562,7 +562,6 @@ st.markdown("<hr style='margin-top: 40px; margin-bottom: 10px; border: 1px solid
 # === Component Scores ===
 st.markdown("<div class='section-title'>Component Scores</div>", unsafe_allow_html=True)
 
-# Change from 3 equal columns to 5 columns with spacers
 sub1, space1, sub2, space2, sub3 = st.columns([3, 0.5, 3, 0.5, 3])
 
 with sub1:
@@ -595,21 +594,17 @@ st.markdown("<hr style='margin-top: 40px; margin-bottom: 10px; border: 1px solid
 st.markdown("<div class='section-title'>90-Day Historical Performance</div>", unsafe_allow_html=True)
 
 try:
-    # Simplify the approach - just get the last 90 rows of data
     historical_data = df.sort_values("date").tail(90).copy()
     
     if len(historical_data) > 1:
-        # Create a simple line chart for composite score only
         fig = px.line(
             historical_data,
             x="date",
             y="composite_score",
             markers=True,
             line_shape="spline"
-            #title="Composite Score Trend"
         )
         
-        # Update layout for better appearance
         fig.update_layout(
             height=400,
             plot_bgcolor="rgba(0,0,0,0)",
@@ -633,7 +628,6 @@ try:
             font=dict(color="white")
         )
         
-        # Add range fills for buy/sell/hold zones
         fig.add_hrect(
             y0=70, y1=100, 
             fillcolor="#4CAF50", opacity=0.3, 
@@ -664,7 +658,6 @@ try:
             annotation_font_size=12
         )
         
-        # Update line appearance
         fig.update_traces(
             line=dict(color='#7d5ee3', width=4),
             marker=dict(color='#ffffff', size=8, line=dict(color='#7d5ee3', width=2))
@@ -772,11 +765,10 @@ st.markdown("<hr style='margin-top: 40px; margin-bottom: 10px; border: 1px solid
 st.markdown("<div class='section-title'>Same-Day Performance in Prior Years</div>", unsafe_allow_html=True)
 
 try:
-    # Find matching month & day rows
     same_day_matches = df[
         (df["date"].dt.month == selected_datetime.month) & 
         (df["date"].dt.day == selected_datetime.day) &
-        (df["date"].dt.year < selected_datetime.year)  # Only prior years
+        (df["date"].dt.year < selected_datetime.year)  
     ]
     same_day_matches = same_day_matches.sort_values("date", ascending=False)
 
@@ -784,11 +776,10 @@ try:
         def render_row(row):
             year = row["date"].year
             score = f"{row['composite_score']:.2f}"
-            close = f"${row['close']:,.2f}"  # Add thousand separators
+            close = f"${row['close']:,.2f}"  
             rec = row["recommendation"].capitalize()
             color = signal_color_map.get(rec.lower(), "#999999")
             
-            # Create recommendation pill
             pill = f"<span class='pill' style='background-color:{color};'>{rec}</span>"
             
             return f"<tr><td>{year}</td><td>{score}</td><td>{pill}</td><td>{close}</td></tr>"
@@ -824,12 +815,10 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 try:
-    # Create a filtered dataframe of recent data (last 90 days)
     end_date = selected_datetime
     start_date = end_date - pd.Timedelta(days=90)
     export_data = df[(df["date"] >= start_date) & (df["date"] <= end_date)]
     
-    # Add thousand separators to numeric columns for better readability
     for col in export_data.select_dtypes(include=['float', 'int']).columns:
         if 'price' in col.lower() or 'open' in col.lower() or 'close' in col.lower() or 'high' in col.lower() or 'low' in col.lower():
             export_data[col] = export_data[col].map('${:,.2f}'.format)

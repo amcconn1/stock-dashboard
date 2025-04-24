@@ -3,7 +3,6 @@ import pandas as pd
 from datetime import datetime
 import plotly.express as px
 import plotly.graph_objects as go
-import os
 
 # ==== Streamlit Config ====
 st.set_page_config(page_title="Stock Dashboard", layout="wide")
@@ -11,21 +10,12 @@ st.set_page_config(page_title="Stock Dashboard", layout="wide")
 # ==== Load Data ====
 @st.cache_data
 def load_data():
-    url = "https://drive.google.com/uc?id=1-2rHajs3BynUMsR9ljXVBZ0P4AvwKbZE"
-    df = pd.read_csv(url)
+    BASE_PATH = "data new/My Drive/StockDashboard_Automation/ExportToGitHub/"
+    df = pd.read_csv(BASE_PATH + "composite_score.csv")
     df["date"] = pd.to_datetime(df["date"])
-    
-    try:
-        top_tickers = pd.read_csv("https://drive.google.com/uc?id=1EhNPrI10KlUiLKRW8fJNr56mJvV8AUsm")
-    except Exception as e:
-        # Fallback if file doesn't exist or there's an error
-        st.warning(f"Could not load Top Ten Tickers: {e}")
-        top_tickers = pd.DataFrame({"ticker_source": ["N/A"], "weighted_score": [0]})
-    
-    return df.sort_values("date"), top_tickers
+    return df.sort_values("date")
 
-# Load both datasets
-df, top_tickers = load_data()
+df = load_data()
 latest = df.iloc[-1]
 
 # ==== Full Style Code ====
@@ -357,40 +347,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# === Trending Tickers Section ===
-st.markdown("<hr style='margin-top: 40px; margin-bottom: 10px; border: 1px solid rgba(255, 255, 255, 0.2);' />", unsafe_allow_html=True)
-st.markdown("<div class='section-title'>🔥 Trending Stocks</div>", unsafe_allow_html=True)
-
-st.markdown("""
-<div style='text-align: center; margin-bottom: 15px;'>
-    <span style='color: #e0e0e0; font-size: 16px;'>
-        <strong>Top 10 Most Discussed Stocks on Reddit in the Last 24 Hours</strong><br>
-        <em>The analysis for this dashboard focuses on the #1 trending stock.</em>
-    </span>
-</div>
-""", unsafe_allow_html=True)
-
-cols = st.columns(5)
-for i, (idx, row) in enumerate(top_tickers.head(10).iterrows()):
-    ticker = row['ticker_source']
-    score = int(row['weighted_score'])
-    
-    col_idx = i % 5
-    
-    intensity = max(0.3, 1 - (i * 0.07))
-    
-    with cols[col_idx]:
-        st.markdown(f"""
-        <div style='background-color: rgba(125, 94, 227, {intensity}); padding: 15px; border-radius: 10px; 
-                     margin-bottom: 10px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);'>
-            <div style='font-size: 24px; font-weight: bold; color: white;'>{ticker}</div>
-            <div style='font-size: 14px; color: rgba(255, 255, 255, 0.8);'>Mentions: {score}</div>
-            <div style='font-size: 12px; color: rgba(255, 255, 255, 0.6);'>Rank: #{i+1}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-st.markdown("<hr style='margin-top: 15px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.2);' />", unsafe_allow_html=True)
-
 
 # ==== Signal Pill (Above KPIs) ====
 signal = latest['recommendation'].strip().lower()
@@ -404,7 +360,7 @@ signal_color = signal_colors.get(signal, "#999999")
 st.markdown(f"""
 <div style='text-align: center;'>
     <span class='pill' style='background-color: {signal_color};'>
-        ✨ Current Recommendation for {latest['ticker']}: {latest['recommendation'].upper()} ✨
+        ✨ Current Recommendation: {latest['recommendation'].upper()} ✨
     </span>
 </div>
 """, unsafe_allow_html=True)

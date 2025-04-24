@@ -11,7 +11,7 @@ st.set_page_config(page_title="Trade Simulator | Stock Dashboard", layout="wide"
 # === Load Data ===
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/composite_score.csv", parse_dates=["date"])
+    df = pd.read_csv("https://drive.google.com/uc?id=1-2rHajs3BynUMsR9ljXVBZ0P4AvwKbZE", parse_dates=["date"])
     return df.sort_values("date")
 
 data = load_data()
@@ -638,7 +638,6 @@ st.markdown("<hr style='margin-top: 15px; margin-bottom: 15px; border: 1px solid
 # === Strategy Settings - Now on Main Page ===
 st.markdown("<div class='section-title'>Simulation Settings</div>", unsafe_allow_html=True)
 
-# Define available strategies with descriptions
 strategies = {
     "Composite Score Strategy": {
         "desc": "This balanced approach uses a combination of fundamental, technical, and news sentiment factors to generate trading signals. This strategy performs best in markets with clear trends and stable fundamentals. Watch for divergences between component scores which may signal upcoming trend changes.",
@@ -666,10 +665,7 @@ strategies = {
     }
 }
 
-# Settings container with improved layout
-with st.container():
-    #st.markdown("<div class='settings-header'>Configure Your Trading Strategy</div>", unsafe_allow_html=True)
-    
+with st.container(): 
     # Strategy selection
     st.markdown("<p style='color: #ffffff; font-size: 16px; font-weight: 500; margin-bottom: 10px;'>1. Select a Strategy:</p>", unsafe_allow_html=True)
     
@@ -683,7 +679,6 @@ with st.container():
         label_visibility="collapsed"
     )
     
-    # Display strategy details
     st.markdown(f"""
     <div class='strategy-card'>
         <div class='strategy-title'>{strategies[strategy]["icon"]} {strategy}</div>
@@ -696,7 +691,6 @@ with st.container():
     
     st.markdown("<hr style='margin-top: 15px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.2);' />", unsafe_allow_html=True)
 
-    # Capital and Date selection
     col1, col2 = st.columns(2)
     
     with col1:
@@ -706,13 +700,11 @@ with st.container():
     with col2:
         st.markdown("<p style='color: #ffffff; font-size: 16px; font-weight: 500; margin-bottom: 10px;'>3. Choose Simulation Period:</p>", unsafe_allow_html=True)
         
-        # Date selection with reasonable defaults
         min_date = data["date"].min().date()
         max_date = data["date"].max().date()
-        default_start = (max_date - timedelta(days=180))  # Last 6 months by default
-        default_start = max(default_start, min_date)  # Ensure we don't go before min_date
+        default_start = (max_date - timedelta(days=180))  
+        default_start = max(default_start, min_date)  
         
-        # Improved date selector containers
         date_col1, date_col2 = st.columns(2)
         
         with date_col1:
@@ -731,7 +723,6 @@ with st.container():
                 max_value=max_date
             )
     
-    # Display date range in a more visual format
     st.markdown(f"""
     <div style='text-align: center''>
         <div class='date-range'>
@@ -740,10 +731,7 @@ with st.container():
         </div>
     </div>
     """, unsafe_allow_html=True)
-    
-    #st.markdown("</div>", unsafe_allow_html=True)  # Close settings container
 
-# Filter data based on date range
 filtered_data = data[(data["date"] >= pd.to_datetime(start_date)) & 
                     (data["date"] <= pd.to_datetime(end_date))].copy()
 
@@ -779,7 +767,6 @@ for i, row in filtered_data.iterrows():
     signal = row[signal_col]
     portfolio_value = cash + shares * price
 
-    # Add portfolio value for chart regardless of trade
     portfolio_values.append({
         "date": date,
         "value": portfolio_value,
@@ -788,12 +775,11 @@ for i, row in filtered_data.iterrows():
         "cash": cash
     })
 
-    # Check if we need to skip this day (7-day trading frequency)
     if last_trade_date and (date - last_trade_date).days < 7:
         continue
 
     if signal == "Buy" and cash >= price:
-        buy_shares = int(cash // price)  # Buy as many shares as possible
+        buy_shares = int(cash // price)  
         if buy_shares > 0:
             shares += buy_shares
             spend = buy_shares * price
@@ -807,7 +793,7 @@ for i, row in filtered_data.iterrows():
             })
             last_trade_date = date
     elif signal == "Sell" and shares > 0:
-        sell_shares = shares  # Sell all shares
+        sell_shares = shares  
         proceeds = sell_shares * price
         shares = 0
         cash += proceeds
@@ -825,10 +811,8 @@ final_equity = cash + shares * filtered_data.iloc[-1]["close"]
 total_return = ((final_equity - capital) / capital) * 100
 annualized_return = total_return / (len(filtered_data) / 252) if len(filtered_data) > 0 else 0
 
-# Create a DataFrame for all portfolio values
 portfolio_df = pd.DataFrame(portfolio_values)
 
-# Calculate drawdown
 if not portfolio_df.empty:
     portfolio_df['running_max'] = portfolio_df['value'].cummax()
     portfolio_df['drawdown'] = (portfolio_df['value'] - portfolio_df['running_max']) / portfolio_df['running_max'] * 100
@@ -841,7 +825,6 @@ st.markdown("<hr style='margin-top: 15px; margin-bottom: 15px; border: 1px solid
 # === Display Performance Summary ===
 st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
 
-# Calculate trade metrics
 num_trades = len(trade_log)
 num_buys = sum(1 for trade in trade_log if trade['Action'] == 'Buy')
 num_sells = sum(1 for trade in trade_log if trade['Action'] == 'Sell')
@@ -849,7 +832,6 @@ final_pnl = running_pnl if 'running_pnl' in locals() else 0  # Get final P/L if 
 pnl_color = "#4CAF50" if final_pnl >= 0 else "#F44336"
 pnl_icon = "📈" if final_pnl >= 0 else "📉"
 
-# Enhanced summary block with intuitive explanation
 st.markdown(f"""
 <div class="summary-block">
     <h4>📈 Overview</h4>
@@ -869,7 +851,6 @@ st.markdown(f"""
 st.markdown("<div style='margin-bottom: 15px;'></div>", unsafe_allow_html=True)
 
 
-# KPI metrics row - now with trade count and net P/L instead of annualized return
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -906,7 +887,6 @@ with col4:
     </div>
     """, unsafe_allow_html=True)
 
-# Enhanced stats with more visual distinction
 st.markdown(f"""
 <div class='strategy-stats'>
     <span class='stat-badge' style="border-left: 3px solid #4CAF50;">🛒 Buy Signals: {num_buys}</span>
@@ -922,15 +902,12 @@ st.markdown("<hr style='margin-top: 15px; margin-bottom: 15px; border: 1px solid
 st.markdown("<div class='section-title'>Portfolio Performance</div>", unsafe_allow_html=True)
 
 if not portfolio_df.empty:
-    # Add a benchmark line (buy and hold)
     initial_price = filtered_data.iloc[0]["close"]
     final_price = filtered_data.iloc[-1]["close"]
     shares_buy_hold = capital / initial_price
     
-    # Add buy and hold performance
     portfolio_df['buy_hold_value'] = filtered_data['close'] * shares_buy_hold
     
-    # Calculate difference at end
     strategy_final = portfolio_df['value'].iloc[-1]
     buyhold_final = portfolio_df['buy_hold_value'].iloc[-1]
     outperformance = ((strategy_final - buyhold_final) / buyhold_final) * 100
@@ -944,10 +921,8 @@ if not portfolio_df.empty:
     """, unsafe_allow_html=True)
     
     
-    # Create Plotly chart
     fig = go.Figure()
     
-    # Add strategy line
     fig.add_trace(go.Scatter(
         x=portfolio_df["date"],
         y=portfolio_df["value"],
@@ -958,7 +933,6 @@ if not portfolio_df.empty:
         text=portfolio_df["signal"]
     ))
     
-    # Add buy and hold reference line
     fig.add_trace(go.Scatter(
         x=portfolio_df["date"],
         y=portfolio_df["buy_hold_value"],
@@ -968,7 +942,6 @@ if not portfolio_df.empty:
         hovertemplate='Date: %{x}<br>Value: $%{y:.2f}<extra></extra>'
     ))
     
-    # Add buy markers
     buy_points = []
     for trade in trade_log:
         if trade['Action'] == 'Buy':
@@ -990,7 +963,6 @@ if not portfolio_df.empty:
             hovertemplate='Buy at: $%{y:.2f}<extra></extra>'
         ))
     
-    # Add sell markers
     sell_points = []
     for trade in trade_log:
         if trade['Action'] == 'Sell':
@@ -1012,7 +984,6 @@ if not portfolio_df.empty:
             hovertemplate='Sell at: $%{y:.2f}<extra></extra>'
         ))
     
-    # Update layout
     fig.update_layout(
         xaxis_title="Date",
         yaxis_title="Portfolio Value ($)",
@@ -1038,9 +1009,7 @@ if not portfolio_df.empty:
     
     st.plotly_chart(fig, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
-    
-
-    
+        
 else:
     st.info("No portfolio data available to display the chart.")
 
@@ -1057,10 +1026,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 if trade_log:
-    # Create a styled transaction table with custom HTML/CSS
     trades_df = pd.DataFrame(trade_log)
 
-    # Add Running P/L column if not already added
     if "P/L" not in trades_df.columns:
         trades_df["P/L"] = None
         running_pnl = 0
@@ -1068,18 +1035,16 @@ if trade_log:
         for i in range(len(trades_df)):
             if trades_df.iloc[i]["Action"] == "Buy":
                 running_pnl -= trades_df.iloc[i]["Total"]
-            else:  # Sell
+            else:  
                 running_pnl += trades_df.iloc[i]["Total"]
             trades_df.at[i, "P/L"] = running_pnl
     
-    # Format display for HTML table with scrollbar
     trades_html = """
     <div class='chart-container2' style='padding: 0;'>
         <div style='max-height: 400px; overflow-y: auto;'>
             <table class='trade-table'>
     """
     
-    # Table header
     trades_html += "<thead><tr>"
     trades_html += "<th>Date</th>"
     trades_html += "<th>Action</th>"
@@ -1089,36 +1054,28 @@ if trade_log:
     trades_html += "<th>Running P/L</th>"
     trades_html += "</tr></thead>"
     
-    # Table body
     trades_html += "<tbody>"
     for _, row in trades_df.iterrows():
         trades_html += "<tr>"
         
-        # Date
         date_str = row["Date"].strftime('%Y-%m-%d') if isinstance(row["Date"], pd.Timestamp) else row["Date"]
         trades_html += f"<td>{date_str}</td>"
         
-        # Action (Buy/Sell with color)
         action_class = "signal-buy" if row["Action"] == "Buy" else "signal-sell"
         trades_html += f"<td class='{action_class}'>{row['Action']}</td>"
         
-        # Price
         trades_html += f"<td>${row['Price']:.2f}</td>"
         
-        # Shares
         trades_html += f"<td>{int(row['Shares'])}</td>"
         
-        # Total
         trades_html += f"<td>${row['Total']:.2f}</td>"
         
-        # Running P/L with color
         pnl_class = "pnl-profit" if row["P/L"] >= 0 else "pnl-loss"
         trades_html += f"<td class='{pnl_class}'>${row['P/L']:.2f}</td>"
         
         trades_html += "</tr>"
     trades_html += "</tbody></table></div></div>"
     
-    # Display the styled HTML table
     st.markdown(trades_html, unsafe_allow_html=True)
     
 else:

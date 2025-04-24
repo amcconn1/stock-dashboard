@@ -1,0 +1,10 @@
+# Ignore Visual Studio Code / Visual Studio
+.vs/
+*.vscode/
+__pycache__/
+*.pyc
+
+# Ignore OS/macOS files
+.DS_Store
+
+app/data new/

@@ -14,8 +14,8 @@ st.set_page_config(page_title="Social Media Sentiment | Stock Dashboard", layout
 @st.cache_data
 def load_data():
     try:
-        sentiment = pd.read_csv("data/social_sentiment.csv", parse_dates=["Date"])
-        raw = pd.read_csv("data/social_raw.csv", parse_dates=["Date"])
+        sentiment = pd.read_csv("https://drive.google.com/uc?id=1-7XF9IPYxxC6WByQOpWQvy3BecBITG3g", parse_dates=["Date"])
+        raw = pd.read_csv("https://drive.google.com/uc?id=1yC049QxaJnPVMFFKxxq3LN-9tXalT-ID", parse_dates=["Date"])
         return sentiment, raw
     except Exception as e:
         st.error(f"Error loading data: {e}")

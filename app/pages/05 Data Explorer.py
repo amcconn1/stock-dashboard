@@ -11,11 +11,11 @@ st.set_page_config(page_title="Data Explorer | Stock Dashboard", layout="wide")
 # === Load Data ===
 @st.cache_data
 def load_data():
-    composite = pd.read_csv("data/composite_score.csv", parse_dates=["date"])
-    technical = pd.read_csv("data/technical_scores.csv", parse_dates=["date"])
-    fundamental = pd.read_csv("data/fundamental_scores.csv", parse_dates=["date"])
-    news = pd.read_csv("data/news_sentiment.csv", parse_dates=["date"])
-    social = pd.read_csv("data/social_sentiment.csv")
+    composite = pd.read_csv("https://drive.google.com/uc?id=1-2rHajs3BynUMsR9ljXVBZ0P4AvwKbZE", parse_dates=["date"])
+    technical = pd.read_csv("https://drive.google.com/uc?id=1jA8dealEGH37YDH7Gs5fZbIOXg-aFu-X", parse_dates=["date"])
+    fundamental = pd.read_csv("https://drive.google.com/uc?id=1_0mOMnLilhu69Q0di3PrOlIOa4gZtIsS", parse_dates=["date"])
+    news = pd.read_csv("https://drive.google.com/uc?id=15NGsicmkQ7fLBxXll9EPCxTD_L5kZvOS", parse_dates=["date"])
+    social = pd.read_csv("https://drive.google.com/uc?id=1-7XF9IPYxxC6WByQOpWQvy3BecBITG3g")
     social['Date'] = pd.to_datetime(social['Date'])
     return composite, technical, fundamental, news, social
 
@@ -873,7 +873,7 @@ with tab2:
             fig_rsi = px.line(
                 filtered_technical,
                 x="date",
-                y="rsi",
+                y="rsi_score",
                 markers=True,
                 line_shape="spline"
             )
@@ -924,13 +924,13 @@ with tab2:
             fig_pe = px.line(
                 filtered_fundamental,
                 x="date",
-                y="pe_ratio",
+                y="Piotroski_Score_Scaled",
                 markers=True,
                 line_shape="spline"
             )
             
             # Add industry average reference
-            industry_avg_pe = filtered_fundamental["pe_ratio"].mean()
+            industry_avg_pe = filtered_fundamental["Piotroski_Score_Scaled"].mean()
             fig_pe.add_hline(y=industry_avg_pe, line_width=2, line_dash="dash", line_color="#4CAF50",
                            annotation_text="Avg", annotation_position="left",
                            annotation_font_color="#4CAF50")
@@ -976,7 +976,7 @@ with tab2:
             ma_fig.add_trace(
                 go.Scatter(
                     x=filtered_technical["date"],
-                    y=filtered_technical["ma_20"],
+                    y=filtered_technical["macd_score"],
                     name="20-day MA",
                     line=dict(color="#4CAF50", width=3)
                 )
@@ -985,7 +985,7 @@ with tab2:
             ma_fig.add_trace(
                 go.Scatter(
                     x=filtered_technical["date"],
-                    y=filtered_technical["ma_50"],
+                    y=filtered_technical["sma_score"],
                     name="50-day MA",
                     line=dict(color="#2196F3", width=3)
                 )
@@ -1030,25 +1030,27 @@ with tab2:
             #st.markdown("<div style='font-size: 22px; font-weight: 600; color: white; margin-bottom: 15px; text-align: center;'>Technical & Fundamental Insights</div>", unsafe_allow_html=True)
             
             #Details                       
-            avg_rsi = filtered_technical["rsi"].mean()
-            latest_rsi = filtered_technical["rsi"].iloc[-1]
-            avg_pe = filtered_fundamental["pe_ratio"].mean()
-            latest_pe = filtered_fundamental["pe_ratio"].iloc[-1]
-            eps_change = (filtered_fundamental["eps"].iloc[-1] - filtered_fundamental["eps"].iloc[0])
+            avg_rsi = filtered_technical["rsi_score"].mean()
+            latest_rsi = filtered_technical["rsi_score"].iloc[-1]
+            avg_pe = filtered_fundamental["Piotroski_Score_Scaled"].mean()
+            latest_pe = filtered_fundamental["Piotroski_Score_Scaled"].iloc[-1]
+            eps_change = (filtered_fundamental["EPS Surprise Score"].iloc[-1] - filtered_fundamental["EPS Surprise Score"].iloc[0])
             
             # Check for MA crossovers
             has_crossover = False
             crossover_type = None
-            
+
             for i in range(1, len(filtered_technical)):
-                prev_row = filtered_technical.iloc[i-1]
-                curr_row = filtered_technical.iloc[i]
-                
-                if (prev_row['ma_20'] < prev_row['ma_50'] and curr_row['ma_20'] > curr_row['ma_50']):
+                prev = filtered_technical.iloc[i-1]
+                curr = filtered_technical.iloc[i]
+
+                # If macd_score and sma_score are both increasing (bullish trend)
+                if prev['macd_score'] < curr['macd_score'] and prev['sma_score'] < curr['sma_score']:
                     has_crossover = True
                     crossover_type = "bullish"
                     break
-                elif (prev_row['ma_20'] > prev_row['ma_50'] and curr_row['ma_20'] < curr_row['ma_50']):
+                # If macd_score and sma_score are both decreasing (bearish trend)
+                elif prev['macd_score'] > curr['macd_score'] and prev['sma_score'] > curr['sma_score']:
                     has_crossover = True
                     crossover_type = "bearish"
                     break
@@ -1111,7 +1113,7 @@ with tab3:
             correlation_data = pd.merge(
                 filtered_composite[['date', 'close', 'percent_change', 'composite_score', 
                                   'fundamental_score', 'technical_score', 'news_sentiment_score']],
-                filtered_technical[['date', 'rsi', 'ma_20', 'ma_50', 'volume']],
+                filtered_technical[['date', 'rsi_score', 'macd_score', 'sma_score', 'atr_score']],
                 on='date'
             )
             
@@ -1143,10 +1145,10 @@ with tab3:
                 'news_sentiment_score': 'News Sentiment',
                 'close': 'Close Price',
                 'percent_change': 'Daily % Change',
-                'rsi': 'RSI',
-                'ma_20': '20-day MA',
-                'ma_50': '50-day MA',
-                'volume': 'Volume',
+                'rsi_score': 'RSI',
+                'macd_score': 'MACD',
+                'sma_score': 'SMA',
+                'atr_score': 'ATR',
                 'article_count': 'Article Count'
             }
             

@@ -119,8 +119,15 @@ st.markdown("""
 ## A
 ---
 
-### Annualized Return
-The return on investment expressed as a yearly rate. Used to compare investments over different time periods.
+### Article Count
+The total number of news articles analyzed for a given date/ticker.
+
+### ATR (Average True Range)
+Measures market volatility by decomposing the entire range of an asset price for a given period. Higher ATR = more volatility.
+
+### ATR Score
+Score derived from Average True Range to measure volatility on a standardized 0–100 scale.
+
 
 ## B
 ---
@@ -152,6 +159,9 @@ The percentage decline from a peak to a trough in an investment's value. Used to
 ### EPS (Earnings Per Share)
 A company's profit divided by the number of outstanding shares. Higher values generally indicate better profitability.
 
+### EPS Surprise Score
+Measures the difference between reported earnings per share (EPS) and analyst expectations. High positive surprises reflect strong performance.
+
 ## F
 ---
 
@@ -173,14 +183,20 @@ Score range of 40-70, indicating neutral conditions based on the selected metric
 ## M
 ---
 
-### MA (Moving Average)
-The average closing price over a specified time period. MA 20 refers to the 20-day moving average.
+### MACD (Moving Average Convergence Divergence)
+A momentum indicator that shows the relationship between two EMAs. Useful for identifying trend direction and momentum.
 
-### Maximum Drawdown
-The largest percentage drop from peak to trough during a specific time period.
+### MACD Score
+A numerical representation of the MACD trend indicator. Captures momentum shifts based on moving averages.
+
 
 ## N
 ---
+### Neutral Sentiment News
+Percentage of analyzed articles classified as neutral.
+
+### Negative Sentiment News
+Percentage of analyzed articles classified as negative.
 
 ### News Sentiment Score
 Component of the composite score based on news and media coverage sentiment analysis (0-100 scale).
@@ -191,16 +207,39 @@ Component of the composite score based on news and media coverage sentiment anal
 ### P/E Ratio (Price-to-Earnings)
 The ratio of a company's share price to its earnings per share. Indicates market expectations for growth.
 
+### Piotroski Score (Scaled)
+A 0–100 scaled version of the Piotroski F-Score, evaluating a firm's financial strength. Higher values indicate better fundamentals.
+
 ### Portfolio Value
 The total worth of an investment portfolio at a given point in time.
 
+### Positive Sentiment News
+Percentage of analyzed articles classified as positive by NLP models.
+
+### Profit Margin Score
+Represents the proportion of revenue that turns into profit. A higher score indicates better operational efficiency.
+
+
+
 ## R
 ---
+
+### Revenue Score
+Quantifies a company's revenue growth relative to peers. Higher values suggest stronger top-line performance.
+
 
 ### RSI (Relative Strength Index)
 A momentum oscillator that measures the speed and change of price movements on a scale from 0 to 100.
 - Above 70: Potentially overbought condition
 - Below 30: Potentially oversold condition
+
+### RSI Score
+Relative Strength Index calculated score on a 0–100 scale. Measures momentum and identifies potential overbought/oversold conditions.
+
+
+### Revenue Score
+Quantifies a company's revenue growth relative to peers. Higher values suggest stronger top-line performance.
+
 
 ## S
 ---
@@ -210,6 +249,9 @@ Generated when a score falls below the lower threshold (typically 40). Suggests 
 
 ### Sell Zone
 Score range of 0-40, indicating unfavorable investment conditions based on the selected metrics.
+
+### SMA Score
+Score based on Simple Moving Averages alignment and crossover patterns.
 
 ### Social Sentiment
 Analysis of conversations from social media platforms to gauge market perception.

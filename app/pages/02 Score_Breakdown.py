@@ -10,9 +10,9 @@ st.set_page_config(page_title="Score Breakdown | Stock Dashboard", layout="wide"
 # === Load Data ===
 @st.cache_data
 def load_data():
-    fund = pd.read_csv("data/fundamental_scores.csv", parse_dates=["date"])
-    tech = pd.read_csv("data/technical_scores.csv", parse_dates=["date"])
-    news = pd.read_csv("data/news_sentiment.csv", parse_dates=["date"])
+    fund = pd.read_csv("https://drive.google.com/uc?id=1_0mOMnLilhu69Q0di3PrOlIOa4gZtIsS", parse_dates=["date"])
+    tech = pd.read_csv("https://drive.google.com/uc?id=1jA8dealEGH37YDH7Gs5fZbIOXg-aFu-X", parse_dates=["date"])
+    news = pd.read_csv("https://drive.google.com/uc?id=15NGsicmkQ7fLBxXll9EPCxTD_L5kZvOS", parse_dates=["date"])
     return fund, tech, news
 
 fund, tech, news = load_data()
@@ -301,7 +301,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 radar_values = {
-    "Fundamental": fund[fund["date"] == selected_datetime]["fundamental_score"].values,
+    "Fundamental": fund[fund["date"] == selected_datetime]["fundamental score"].values,
     "Technical": tech[tech["date"] == selected_datetime]["technical_score"].values,
     "News Sentiment": news[news["date"] == selected_datetime]["news_sentiment_score"].values
 }
@@ -418,7 +418,7 @@ def render_component_metrics(title, df, score_col, drivers, color, icon):
         cols = st.columns(len(driver_data))
         for i, (metric, value) in enumerate(driver_data.items()):
             with cols[i]:
-                formatted_value = f"${value:,.2f}" if "ratio" not in metric.lower() and metric != "rsi" else f"{value:.2f}"
+                formatted_value = f"{value:,.2f}" if "ratio" not in metric.lower() and metric != "rsi" else f"{value:.2f}"
                 st.markdown(f"""
                 <div class='metric-tile'>
                     <div class='metric-tile-value'>{formatted_value}</div>
@@ -505,8 +505,8 @@ def render_component_metrics(title, df, score_col, drivers, color, icon):
 render_component_metrics(
     "Fundamental Score", 
     fund, 
-    "fundamental_score", 
-    ["revenue", "net_income", "eps", "pe_ratio"], 
+    "fundamental score", 
+    ["revenue score", "Profit Margin Score", "EPS Surprise Score", "Piotroski_Score_Scaled"], 
     "#2196F3",
     "📊"
 )
@@ -516,7 +516,7 @@ render_component_metrics(
     "Technical Score", 
     tech, 
     "technical_score", 
-    ["rsi", "ma_20", "ma_50", "volume"], 
+    ["rsi_score", "macd_score", "atr_score", "sma_score"], 
     "#F44336",
     "📈"
 )
@@ -546,17 +546,17 @@ st.markdown("""
 Based on company financial health and valuations. Higher scores indicate stronger financial position, revenue growth, and reasonable valuation.
 
 **Technical Score**  
-Derived from price patterns, volume, and momentum indicators. Includes analysis of moving averages (20 and 50 day), RSI, and volume trends.
+Derived from price patterns, RSI, and moving averages.
 
 **News Sentiment Score**  
 Measures market perception through news coverage and sentiment analysis. Tracks article count and the ratio of positive to negative coverage.
 
 #### Key Metrics Definitions
 
-- **RSI (Relative Strength Index)**: Momentum indicator measuring recent price changes (0–100). Above 70 = potentially overbought, below 30 = potentially oversold.
-- **MA 20/50**: Average closing price over 20/50 trading days. Helps identify trends and support/resistance levels.
-- **EPS (Earnings Per Share)**: Company's profit divided by outstanding shares. Higher = better profitability.
-- **P/E Ratio**: Share price divided by EPS. Indicates market expectations for growth.
+- **RSI Score (Relative Strength Index)**: Momentum indicator measuring recent price changes (0–100). Above 70 = potentially overbought, below 30 = potentially oversold.
+- **MACD (Moving Average Convergence Divergence) Indicator**: Technical indicator to help investors identify entry points for buying or selling. The MACD line is calculated by subtracting the 26-period exponential moving average (EMA) from the 12-period EMA.It's interpreted based on its movement and relationship with other indicators.
+- **Profit Margin Score (PMS)**: A financial ratio that measures the percentage of profit earned by a company in relation to its revenue. Higher = better profitability.
+- **Piotroski Score**: A system for assessing a company's financial strength, using a numerical score between 0 and 9. A higher score (8 or 9) generally indicates a stronger financial position, while a lower score (1 or 2) suggests potential weaknesses.
 
 </div>
 """, unsafe_allow_html=True)
@@ -567,10 +567,10 @@ st.markdown("<hr style='margin-top: 30px; margin-bottom: 30px; border: 1px solid
 # === Correlation Analysis ===
 
 label_map = {
-    "fundamental_score": "Fundamental Score",
+    "fundamental score": "Fundamental Score",
     "technical_score": "Technical Score",
     "news_sentiment_score": "News Sentiment Score",
-    "percent_change": "Price Change"  # if included
+    "percent_change": "Price Change" 
 }
 
 # Add this after the component sections
@@ -589,7 +589,7 @@ try:
     
     # Select relevant columns for correlation
     corr_columns = [
-        'fundamental_score', 
+        'fundamental score', 
         'technical_score', 
         'news_sentiment_score'
     ]
