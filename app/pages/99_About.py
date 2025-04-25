@@ -379,7 +379,7 @@ A weighted average of:
 - **Backtesting** against historical performance
 - **APIs**: Yahoo Finance, Polygon.io, Reddit (PRAW)
 
-"""
+""")
 
 # === Team Section ===
 st.markdown("## Meet The Team")

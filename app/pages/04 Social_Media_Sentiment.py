@@ -520,6 +520,7 @@ else:
 # === Calculate date range for display ===
 end_date = pd.to_datetime(selected_date)
 start_date = end_date - timedelta(days=30)
+min_date = max_date - timedelta(days=30)
 
 # === Convert data safely and handle potential issues ===
 try:
@@ -533,8 +534,8 @@ try:
             return default
     
     # Convert values with fallbacks
-    post_count = safe_convert(row.get('Post_Count', 0))
-    comment_count = safe_convert(row.get('Comment_Count', 0))
+    post_count = safe_convert(row.get('Post Count', 0))
+    comment_count = safe_convert(row.get('Comment Count', 0))
     neg_sentiment = safe_convert(row.get('Negative_Sentiment_Social', 0))
     neutral_sentiment = safe_convert(row.get('Neutral_Sentiment_Social', 0))
     pos_sentiment = safe_convert(row.get('Positive_Sentiment_Social', 0))
@@ -549,13 +550,13 @@ try:
             Ticker: <strong>{ticker}</strong>
         </div>
         <div class='date-range'>
-            📊 Showing 30-day trend: <strong>{start_date.strftime('%b %d')} - {end_date.strftime('%b %d, %Y')}</strong>
+            📊 Showing 30-day trend: <strong>{max_date.strftime('%b %d')} - {min_date.strftime('%b %d, %Y')}</strong>
         </div>
     </div>
     """, unsafe_allow_html=True)
     
     # === Summary Dashboard ===
-    st.markdown("<div class='section-title'>Sentiment Overview</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='section-title'>Sentiment Overview: {selected_date.strftime('%B %d, %Y')}</div>", unsafe_allow_html=True)
     
 
     sentiment_signal_colors = {
@@ -591,7 +592,7 @@ try:
         st.markdown(f"""
         <div class='card'>
             <div class='kpi-value'>{formatted_comment_count}</div>
-            <div class='kpi-label'>💬 CommentsComments</div>
+            <div class='kpi-label'>💬Comments</div>
         </div>
         """, unsafe_allow_html=True)
     
@@ -677,7 +678,7 @@ try:
     
     if 'Social_Sentiment_Score' in sentiment.columns:
         # Get last 30 days of data, ordered by date
-        trend_data = sentiment[(sentiment["Date"] >= start_date) & (sentiment["Date"] <= end_date)]
+        trend_data = sentiment[(sentiment["Date"].dt.date >= min_date) & (sentiment["Date"].dt.date <= max_date)]
         trend_data = trend_data.sort_values("Date")
         
         if not trend_data.empty:
@@ -756,7 +757,7 @@ try:
 
     
     # === Top Subreddits Table ===
-    st.markdown("<div class='section-title'>Community Analysis</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='section-title'>30-Day Community Analysis</div>", unsafe_allow_html=True)
     
     st.markdown("""
     <div class="info-panel" style="border-left: 4px solid #7d5ee3;">
@@ -766,8 +767,9 @@ try:
     </div>
     """, unsafe_allow_html=True)
     
-    filtered_raw = raw[raw["Date"].dt.date == selected_date]
-    
+    filtered_raw = raw[(raw["Date"].dt.date >= min_date) & (raw["Date"].dt.date <= max_date)]
+
+       
     if not filtered_raw.empty and "Subreddit Name" in filtered_raw.columns:
         top_subs = filtered_raw["Subreddit Name"].value_counts().head(5)
         
@@ -815,9 +817,9 @@ try:
     st.markdown("<hr style='margin-top: 20px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.2);' />", unsafe_allow_html=True)
 
 
-    # === Top Reddit Posts ===
-    st.markdown("<div class='section-title'>Trending Discussions</div>", unsafe_allow_html=True)
-    
+    # === Top Reddit Posts === 
+    st.markdown("<div class='section-title'>30-Day Trending Discussions</div>", unsafe_allow_html=True)
+
     st.markdown("""
     <div class="info-panel" style="border-left: 4px solid #7d5ee3;">
         <strong>Discussion Analysis:</strong> 
@@ -825,61 +827,65 @@ try:
         Pay attention to recurring themes that might signal broader market sentiment shifts.
     </div>
     """, unsafe_allow_html=True)
-    
+
     if not filtered_raw.empty:
-        # Check available columns
+        # Ensure expected columns exist
         available_cols = filtered_raw.columns.tolist()
-        required_cols = {
-            "score_col": "Score" if "Score" in available_cols else None,
-            "author_col": "Author" if "Author" in available_cols else None,
-            "subreddit_col": "Subreddit Name" if "Subreddit Name" in available_cols else None,
-            "url_col": "URL" if "URL" in available_cols else None,
-            "title_col": "Title" if "Title" in available_cols else None,
-            "text_col": "Text" if "Text" in available_cols else None,
-        }
-        
-        # Check if minimum required columns exist
-        if required_cols["score_col"] or (required_cols["title_col"] or required_cols["text_col"]):
-            # Sort by score if available
-            if required_cols["score_col"]:
-                top_posts = filtered_raw.sort_values(required_cols["score_col"], ascending=False).head(5)
-            else:
-                top_posts = filtered_raw.head(5)
-            
-            # Display posts in enhanced card format
-            for i, post in top_posts.iterrows():
-                # Handle potential missing values with safe extraction
-                author = post.get(required_cols["author_col"], 'Anonymous') if required_cols["author_col"] else 'Anonymous'
-                subreddit = post.get(required_cols["subreddit_col"], 'Unknown') if required_cols["subreddit_col"] else 'Unknown'
-                url = post.get(required_cols["url_col"], '#') if required_cols["url_col"] else '#'
-                title = post.get(required_cols["title_col"], 'No title') if required_cols["title_col"] else 'No title'
-                text = post.get(required_cols["text_col"], '') if required_cols["text_col"] else ''
-                score = post.get(required_cols["score_col"], 0) if required_cols["score_col"] else 0
-                
-                # Format score with thousand separators
-                formatted_score = f"{int(score):,}" if score else "0"
-                
-                # Truncate text if too long
-                text_preview = str(text)[:150] + "..." if isinstance(text, str) and len(str(text)) > 150 else text
-                
-                st.markdown(f"""
-                <div class='reddit-post'>
-                    <div class='post-header'>
-                        <strong>u/{author}</strong> in <em>r/{subreddit}</em> • Score: {formatted_score}
-                    </div>
-                    <div class='post-title'>
-                        <a href='{url}' target='_blank' style='color: #7d5ee3;'>{title}</a>
-                    </div>
-                    <div class='post-text'>{text_preview}</div>
+        score_col = "Score" if "Score" in available_cols else None
+        title_col = "Title" if "Title" in available_cols else None
+        text_col = "Text" if "Text" in available_cols else None
+        author_col = "Author" if "Author" in available_cols else None
+        subreddit_col = "Subreddit Name" if "Subreddit Name" in available_cols else None
+        url_col = "URL" if "URL" in available_cols else None
+
+        # Drop rows with missing or empty titles
+        filtered_valid = filtered_raw.dropna(subset=[title_col])
+        filtered_valid = filtered_valid[filtered_valid[title_col].str.strip().astype(bool)]
+
+        # Sort by score if available
+        if score_col:
+            filtered_valid = filtered_valid.sort_values(score_col, ascending=False)
+
+        # Limit to top 5
+        top_posts = filtered_valid.head(5)
+
+        for _, post in top_posts.iterrows():
+            title = post.get(title_col, '').strip()
+            if not title:
+                continue
+
+            url = post.get(url_col, '#').strip()
+            if url.startswith("https://preview.redd.it"):
+                continue  # skip image-only preview links
+
+            author = post.get(author_col, 'Anonymous')
+            subreddit = post.get(subreddit_col, 'Unknown')
+            score = int(post.get(score_col, 0)) if score_col else 0
+            text = post.get(text_col, '')
+            text_preview = str(text)[:150] + "..." if isinstance(text, str) and len(str(text)) > 150 else text
+
+            formatted_score = f"{score:,}"
+
+            st.markdown(f"""
+            <div class='reddit-post'>
+                <div class='post-header'>
+                    <strong>u/{author}</strong> in <em>r/{subreddit}</em> • Score: {formatted_score}
                 </div>
-                """, unsafe_allow_html=True)
-        else:
-            st.info("Required Reddit post data is missing.")
+                <div class='post-title'>
+                    <a href='{url}' target='_blank' style='color: #7d5ee3;'>{title}</a>
+                </div>
+                <div class='post-text'>{text_preview}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        if top_posts.empty:
+            st.info("No valid Reddit posts with titles found for the selected date.")
     else:
         st.info("No Reddit posts available for the selected date.")
+
         
     # === Word Cloud of Comments (Enhanced)===
-    st.markdown("<div class='section-title'>Key Terms Analysis</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>30-Day Key Terms Analysis</div>", unsafe_allow_html=True)
     
     st.markdown("""
     <div class="info-panel" style="border-left: 4px solid #7d5ee3;">
@@ -890,8 +896,7 @@ try:
     """, unsafe_allow_html=True)
     
     # Filter for the last 30 days of comments
-    thirty_days_ago = pd.to_datetime(selected_date) - timedelta(days=30)
-    recent_comments = raw[raw["Date"] >= thirty_days_ago]
+    recent_comments = raw[(raw["Date"].dt.date >= min_date) & (raw["Date"].dt.date <= max_date)]
     
     if not recent_comments.empty and "Text" in recent_comments.columns:
         # Combine all comments, handling potential NaN values
