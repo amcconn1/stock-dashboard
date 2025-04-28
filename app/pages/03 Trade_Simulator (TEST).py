@@ -723,6 +723,21 @@ with st.container():
                 max_value=max_date
             )
     
+    # Add Initial Position Allocation
+    st.markdown("<p style='color: #ffffff; font-size: 16px; font-weight: 500; margin-bottom: 10px;'>4. Initial Position:</p>", unsafe_allow_html=True)
+
+    initial_position_col1, initial_position_col2 = st.columns(2)
+
+    with initial_position_col1:
+        initial_investment = st.slider(
+        "Allocate initial capital ($):",
+        min_value=0,
+        max_value=int(capital),
+        value=int(capital * 0.5),
+        step=100
+    )
+
+    
     st.markdown(f"""
     <div style='text-align: center''>
         <div class='date-range'>
@@ -743,10 +758,31 @@ if filtered_data.empty:
     """, unsafe_allow_html=True)
     st.stop()
 
+# Display initial position details
+if len(filtered_data) > 0:
+    initial_price = filtered_data.iloc[0]["close"]
+    starting_price = filtered_data.iloc[0]["close"]
+    max_shares = int(capital // starting_price)
+    initial_shares = int(initial_investment // starting_price)
+    spent_on_initial = initial_shares * starting_price
+    cash = capital - spent_on_initial
+
+    
+    with initial_position_col2:
+        st.markdown(f"""
+        <div style='background-color: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px;'>
+            <p style='color: #e0e0e0; margin-bottom: 5px;'>Starting Price: <strong>${starting_price:.2f}</strong></p>
+            <p style='color: #e0e0e0; margin-bottom: 5px;'>Max Shares with Full Capital: <strong>{max_shares}</strong></p>
+            <p style='color: #e0e0e0; margin-bottom: 5px;'>Initial Shares Purchased: <strong>{initial_shares}</strong></p>
+            <p style='color: #e0e0e0; margin-bottom: 0;'>Initial Investment: <strong>${spent_on_initial:.2f}</strong></p>
+            <p style='color: #e0e0e0; margin-bottom: 0;'>Cash Remaining: <strong>${cash:.2f}</strong></p>
+        </div>
+        """, unsafe_allow_html=True)
+
 
 # === Explicit score column mapping ===
 score_column = strategies[strategy]["column"]
-signal_col = "signal"
+signal_col = "recommendation"
 
 # === Set thresholds ===
 buy_thresh, sell_thresh = (70, 40) if "sentiment" not in score_column else (0.7, 0.3)
@@ -755,11 +791,35 @@ filtered_data[signal_col] = filtered_data[score_column].apply(
 )
 
 # === Simulate trades (once per 7 days) ===
-cash = capital
-shares = 0
+starting_date = filtered_data.iloc[0]["date"]
+starting_price = filtered_data.iloc[0]["close"]
+cash = capital - spent_on_initial
+shares = initial_shares
+
+# Initialize trade log with initial position
 trade_log = []
+if shares > 0:
+    trade_log.append({
+        "Date": starting_date,
+        "Action": "Initial Buy",
+        "Price": starting_price,
+        "Shares": initial_shares,
+        "Total": spent_on_initial
+    })
+
 portfolio_values = []
-last_trade_date = None
+starting_value = cash + shares * starting_price
+
+# Initial portfolio position
+portfolio_values.append({
+    "date": starting_date,
+    "value": starting_value,
+    "signal": "Initial Position",
+    "shares": initial_shares,
+    "cash": cash
+})
+
+last_trade_date = starting_date if shares > 0 else None
 
 for i, row in filtered_data.iterrows():
     price = row["close"]
@@ -828,7 +888,8 @@ st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow
 num_trades = len(trade_log)
 num_buys = sum(1 for trade in trade_log if trade['Action'] == 'Buy')
 num_sells = sum(1 for trade in trade_log if trade['Action'] == 'Sell')
-final_pnl = running_pnl if 'running_pnl' in locals() else 0  # Get final P/L if available
+num_initial_buys = sum(1 for trade in trade_log if trade['Action'] == 'Initial Buy')
+final_pnl = final_equity - capital
 pnl_color = "#4CAF50" if final_pnl >= 0 else "#F44336"
 pnl_icon = "📈" if final_pnl >= 0 else "📉"
 
@@ -849,7 +910,6 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 st.markdown("<div style='margin-bottom: 15px;'></div>", unsafe_allow_html=True)
-
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -897,11 +957,11 @@ st.markdown(f"""
 
 st.markdown("<hr style='margin-top: 15px; margin-bottom: 15px; border: 1px solid rgba(255, 255, 255, 0.2);' />", unsafe_allow_html=True)
 
-
 # === Portfolio Value Chart ===
 st.markdown("<div class='section-title'>Portfolio Performance</div>", unsafe_allow_html=True)
 
 if not portfolio_df.empty:
+    # Calculate buy and hold comparison
     initial_price = filtered_data.iloc[0]["close"]
     final_price = filtered_data.iloc[-1]["close"]
     shares_buy_hold = capital / initial_price
@@ -944,7 +1004,7 @@ if not portfolio_df.empty:
     
     buy_points = []
     for trade in trade_log:
-        if trade['Action'] == 'Buy':
+        if trade['Action'] in ['Buy', 'Initial Buy']:
             matching_portfolio = portfolio_df[portfolio_df['date'] == trade['Date']]
             if not matching_portfolio.empty:
                 buy_points.append({
@@ -1033,7 +1093,7 @@ if trade_log:
         running_pnl = 0
 
         for i in range(len(trades_df)):
-            if trades_df.iloc[i]["Action"] == "Buy":
+            if trades_df.iloc[i]["Action"] in ["Buy", "Initial Buy"]:
                 running_pnl -= trades_df.iloc[i]["Total"]
             else:  
                 running_pnl += trades_df.iloc[i]["Total"]
@@ -1061,7 +1121,7 @@ if trade_log:
         date_str = row["Date"].strftime('%Y-%m-%d') if isinstance(row["Date"], pd.Timestamp) else row["Date"]
         trades_html += f"<td>{date_str}</td>"
         
-        action_class = "signal-buy" if row["Action"] == "Buy" else "signal-sell"
+        action_class = "signal-buy" if row["Action"] in ["Buy", "Initial Buy"] else "signal-sell"
         trades_html += f"<td class='{action_class}'>{row['Action']}</td>"
         
         trades_html += f"<td>${row['Price']:.2f}</td>"
@@ -1086,13 +1146,8 @@ else:
         <p style="color: #c0c0c0; font-size: 14px;">Try adjusting your strategy parameters or time period</p>
     </div>
     """, unsafe_allow_html=True)
-
-# === No Trades Log ===
-
-# After you check if there are any trades
-if not trade_log:
-   
-    # Calculate buy and hold performance
+    
+    # Add buy and hold comparison when no trades are executed
     initial_price = filtered_data.iloc[0]["close"]
     final_price = filtered_data.iloc[-1]["close"]
     buy_hold_return = ((final_price - initial_price) / initial_price) * 100
@@ -1137,6 +1192,7 @@ if not trade_log:
             <div class='kpi-label'>Final Value ({return_icon} {buy_hold_return:.2f}%)</div>
         </div>
         """, unsafe_allow_html=True)
+
 
 # === Raw Data View ===
 with st.expander("View Raw Simulation Data"):
