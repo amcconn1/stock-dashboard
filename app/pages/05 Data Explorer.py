@@ -528,7 +528,7 @@ st.markdown("""
 
 
 # === AI Assistant Section (Top of page) ===
-st.markdown("<div class='section-title'>Chat Assistant</div>", unsafe_allow_html=True)
+st.markdown("<div class='section-title'>FAQ's (Future Chat Assistant)</div>", unsafe_allow_html=True)
 
 # Create a chat interface
 if 'messages' not in st.session_state:
@@ -577,7 +577,7 @@ for i, col in enumerate(prompt_cols):
                 response_text = "RSI (Relative Strength Index) is a momentum indicator that measures the speed and change of price movements. Values above 70 indicate overbought conditions, while values below 30 suggest oversold conditions."
             elif i == 2:  # Sentiment
                 avg_sentiment = news["news_sentiment_score"].mean().round(2)
-                response_text = f"Current average sentiment score is {avg_sentiment}. Values above 0.6 indicate positive market sentiment, while values below 0.4 suggest negative sentiment."
+                response_text = f"Current average news sentiment score is {avg_sentiment}. Values above 60 indicate positive market sentiment, while values below 40 suggest negative sentiment."
             elif i == 3:  # Buy/sell recommendation
                 latest_rec = composite["recommendation"].iloc[-1]
                 latest_score = composite["composite_score"].iloc[-1].round(2)
@@ -857,7 +857,7 @@ with tab1:
         with metric_cols[3]:
             st.markdown(f"""
             <div style="background-color: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; text-align: center;">
-                <div style="font-size: 14px; color: white;">Key Driver</div>
+                <div style="font-size: 14px; color: white;">Highest Score</div>
                 <div style="font-size: 24px; font-weight: bold; color: white;">{dominant_component}</div>
             </div>
             """, unsafe_allow_html=True)
@@ -920,7 +920,7 @@ with tab2:
             st.markdown("</div>", unsafe_allow_html=True)
             
             
-            # Create P/E chart
+            # Create Piotroski chart
             fig_pe = px.line(
                 filtered_fundamental,
                 x="date",
@@ -948,7 +948,7 @@ with tab2:
                     title_font=dict(color='#ffffff')
                 ),
                 yaxis=dict(
-                    title="P/E Ratio",
+                    title="Piotroski Score",
                     showgrid=True,
                     gridcolor="rgba(255,255,255,0.1)",
                     tickfont=dict(color='#ffffff'),
@@ -1034,7 +1034,7 @@ with tab2:
             latest_rsi = filtered_technical["rsi_score"].iloc[-1]
             avg_pe = filtered_fundamental["Piotroski_Score_Scaled"].mean()
             latest_pe = filtered_fundamental["Piotroski_Score_Scaled"].iloc[-1]
-            eps_change = (filtered_fundamental["EPS Surprise Score"].iloc[-1] - filtered_fundamental["EPS Surprise Score"].iloc[0])
+            #eps_change = (filtered_fundamental["EPS Surprise Score"].iloc[-1] - filtered_fundamental["EPS Surprise Score"].iloc[0])
             
             # Check for MA crossovers
             has_crossover = False
@@ -1070,7 +1070,7 @@ with tab2:
                 <div class='observation-item'>
                     <div class='observation-icon'>💰</div>
                     <div class='observation-text'>
-                        <strong>P/E Ratio:</strong> Average: {avg_pe:.2f}, Latest: {latest_pe:.2f}
+                        <strong>Piotroski Score:</strong> Average: {avg_pe:.2f}, Latest: {latest_pe:.2f}
                         ({
                         "above industry average" if latest_pe > avg_pe else 
                         "below industry average"
@@ -1083,17 +1083,6 @@ with tab2:
                         <strong>Moving Average:</strong> {
                         f"A {crossover_type} crossover has been detected" if has_crossover else 
                         "No moving average crossovers in this period"
-                        }
-                    </div>
-                </div>
-                <div class='observation-item'>
-                    <div class='observation-icon'>{
-                    "📈" if eps_change > 0 else "📉"
-                    }</div>
-                    <div class='observation-text'>
-                        <strong>EPS Trend:</strong> {
-                        f"Increased by ${abs(eps_change):.2f}" if eps_change > 0 else
-                        f"Decreased by ${abs(eps_change):.2f}"
                         }
                     </div>
                 </div>

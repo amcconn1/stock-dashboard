@@ -351,8 +351,8 @@ st.markdown("""
     <span style='color: #e0e0e0; font-size: 16px;'>
         <strong>Scoring Zones:</strong> 
         <span style='color: #4CAF50;'>Buy (100-70)</span> | 
-        <span style='color: #FFC107;'>Hold (71-40)</span> | 
-        <span style='color: #F44336;'>Sell (41-0)</span>
+        <span style='color: #FFC107;'>Hold (69-40)</span> | 
+        <span style='color: #F44336;'>Sell (39-0)</span>
     </span>
 </div>
 """, unsafe_allow_html=True)

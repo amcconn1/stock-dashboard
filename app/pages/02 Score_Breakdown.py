@@ -292,13 +292,13 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # === Create Radar Chart for Selected Date ===
-st.markdown("<div class='section-title'> Composite Analysis</div>", unsafe_allow_html=True)
+#st.markdown("<div class='section-title'> Composite Analysis</div>", unsafe_allow_html=True)
 
-st.markdown("""
-<div style='color: #e0e0e0; font-size: 16px; text-align: center; margin-top: -10px; margin-bottom: 20px;'>
-    <em>Note: Values in the radar chart are normalized (0–100 scale) to highlight relative strengths across components.</em>
-</div>
-""", unsafe_allow_html=True)
+#st.markdown("""
+#<div style='color: #e0e0e0; font-size: 16px; text-align: center; margin-top: -10px; margin-bottom: 20px;'>
+ #   <em>Note: Values in the radar chart are normalized (0–100 scale) to highlight relative strengths across components.</em>
+#</div>
+#""", unsafe_allow_html=True)
 
 radar_values = {
     "Fundamental": fund[fund["date"] == selected_datetime]["fundamental score"].values,
@@ -306,80 +306,7 @@ radar_values = {
     "News Sentiment": news[news["date"] == selected_datetime]["news_sentiment_score"].values
 }
 
-# Check if we have data for all components
-if all(len(v) > 0 for v in radar_values.values()):
-    # Extract values for the radar chart
-    categories = list(radar_values.keys())
-    values = [v[0] for v in radar_values.values()]
-    
-    # Normalize values for better radar visualization (0-100 scale)
-    max_value = max(values)
-    normalized_values = [min(v / max_value * 100, 100) for v in values]
-    
-    # Create radar chart with Plotly
-    fig = go.Figure()
-    
-    fig.add_trace(go.Scatterpolar(
-        r=normalized_values,
-        theta=categories,
-        fill='toself',
-        fillcolor='rgba(225, 165, 0, 0.5)',
-        line=dict(color='#7d5ee3', width=2),
-        name='Score Components'
-    ))
-    
-    fig.update_layout(
-        polar=dict(
-            radialaxis=dict(
-                visible=True,
-                range=[0, 100],
-                showticklabels=False,
-                gridcolor='rgba(255, 255, 255, 0.2)'
-            ),
-            angularaxis=dict(
-                showticklabels=True,
-                gridcolor='rgba(255, 255, 255, 0.2)',
-                tickfont=dict(color='#ffffff')
-            ),
-            bgcolor='rgba(0, 0, 0, 0)'
-        ),
-        showlegend=False,
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(255, 255, 255, 0.05)',
-        margin=dict(l=80, r=80, t=20, b=20),
-        height=400
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
-    
-    # Display value summary below the chart
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown(f"""
-        <div class='metric-tile'>
-            <div class='metric-tile-value'>{values[0]:.2f}</div>
-            <div class='metric-tile-label'>📊 Fundamental Score</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown(f"""
-        <div class='metric-tile'>
-            <div class='metric-tile-value'>{values[1]:.2f}</div>
-            <div class='metric-tile-label'>📈 Technical Score</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col3:
-        st.markdown(f"""
-        <div class='metric-tile'>
-            <div class='metric-tile-value'>{values[2]:.2f}</div>
-            <div class='metric-tile-label'>📰 News Sentiment Score</div>
-        </div>
-        """, unsafe_allow_html=True)
-    
-else:
-    st.info("Not all scores are available for the selected date. Please choose another date.")
+#Where the radar chart used to be
 
 
 def render_component_metrics(title, df, score_col, drivers, color, icon):

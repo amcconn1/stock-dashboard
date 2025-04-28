@@ -698,17 +698,28 @@ try:
     </div>
     """, unsafe_allow_html=True)
 
-    # 2. Sentiment vs Fundamental Conflict
-    if abs(components["News Sentiment"] - components["Fundamental Score"]) > 20:
+    # 2. Mixed Signals Detection (Better Analysis)
+    scores = {
+        "Fundamental Score": components["Fundamental Score"],
+        "Technical Score": components["Technical Score"],
+        "News Sentiment": components["News Sentiment"]
+    }
+
+    max_score = max(scores.values())
+    min_score = min(scores.values())
+    max_component = max(scores, key=scores.get)
+    min_component = min(scores, key=scores.get)
+
+    if abs(max_score - min_score) > 20:
         st.markdown(f"""
         <div class='observation-item' style='--delay: 2'>
             <div class='observation-icon'>⚠️</div>
             <div class='observation-text'>
-                <strong>Conflicting Signals:</strong> News sentiment ({components["News Sentiment"]:.2f}) and 
-                fundamentals ({components["Fundamental Score"]:.2f}) are significantly out of sync, suggesting potential market inefficiency.
+                <strong>Mixed Signals:</strong> While the {max_component} ({max_score:.2f}) shows relative strength, the {min_component} ({min_score:.2f}) remains weak, suggesting uneven market conditions.
             </div>
         </div>
         """, unsafe_allow_html=True)
+
 
     # 3. Extreme Movement Alert (YoY)
     if prev_row is not None:

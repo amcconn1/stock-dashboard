@@ -1087,6 +1087,56 @@ else:
     </div>
     """, unsafe_allow_html=True)
 
+# === No Trades Log ===
+
+# After you check if there are any trades
+if not trade_log:
+  
+    # Calculate buy and hold performance
+    initial_price = filtered_data.iloc[0]["close"]
+    final_price = filtered_data.iloc[-1]["close"]
+    buy_hold_return = ((final_price - initial_price) / initial_price) * 100
+    shares_bought = capital / initial_price
+    final_value = shares_bought * final_price
+    
+    # Display buy and hold metrics
+    st.markdown("""
+    <div class="summary-block">
+        <h4>📊 Buy & Hold Alternative</h4>
+        <p>
+            If you had invested your entire ${:,.2f} on {:s} at ${:.2f} per share and held until {:s}, 
+            your investment would now be worth ${:,.2f}, representing a {:s}{:.2f}% return.
+        </p>
+    </div>
+    """.format(
+        capital, 
+        filtered_data.iloc[0]["date"].strftime('%B %d, %Y'),
+        initial_price,
+        filtered_data.iloc[-1]["date"].strftime('%B %d, %Y'),
+        final_value,
+        "+" if buy_hold_return >= 0 else "",
+        buy_hold_return
+    ), unsafe_allow_html=True)
+    
+    # Add visual comparison
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown(f"""
+        <div class='card'>
+            <div class='kpi-value'>${capital:,.2f}</div>
+            <div class='kpi-label'>Initial Investment</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        return_color = "#4CAF50" if buy_hold_return >= 0 else "#F44336"
+        return_icon = "📈" if buy_hold_return >= 0 else "📉"
+        st.markdown(f"""
+        <div class='card'>
+            <div class='kpi-value' style='color:{return_color};'>${final_value:,.2f}</div>
+            <div class='kpi-label'>Final Value ({return_icon} {buy_hold_return:.2f}%)</div>
+        </div>
+        """, unsafe_allow_html=True)
 
 # === Raw Data View ===
 with st.expander("View Raw Simulation Data"):
