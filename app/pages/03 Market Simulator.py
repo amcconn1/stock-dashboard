@@ -311,6 +311,7 @@ hr {
     color: #ffffff;
     display: inline-block;
     margin-bottom: 20px;
+    margin-top: 50px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     animation: fadeIn 0.5s ease-out;
 }
@@ -610,11 +611,22 @@ hr {
     color: #ffffff;
     font-size: 16px;
 }
+
+[data-testid="stSlider"] label {
+    color: #ffffff !important;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+[data-testid="stSlider"] span {
+    color: #ffffff !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # === Title and Introduction ===
-st.markdown("<div class='title'>📊 💲 Trade Simulator</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>📊 💲 Market Simulator</div>", unsafe_allow_html=True)
 st.markdown("""
 <div class='subtitle'>
     Risk-Free Strategy Testing: Experiment with different trading approaches using real historical data to see how they would have performed. Build confidence in your investment decisions by understanding how various strategies behave across different market conditions without risking real capital.
@@ -737,7 +749,6 @@ with st.container():
         step=100
     )
 
-    
     st.markdown(f"""
     <div style='text-align: center''>
         <div class='date-range'>
