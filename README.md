@@ -5,6 +5,18 @@
 
 Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps novice investors analyze market sentiment, technical indicators, and fundamental metrics. It brings together data from news, Reddit, technical analysis, and financial fundamentals — wrapped in an intuitive UI.
 
+## 🗂 Table of Contents
+
+1. [Live App](#-live-app)
+2. [Problem Statement & Project Overview](#-problem-statement--project-overview)
+3. [Features](#-features)
+4. [Data Sources](#-data-sources)
+5. [Methodology & Code Access](#-methodology--code-access)
+6. [Technologies](#-technologies)
+7. [Future Enhancements (Next Steps)](#-future-enhancements-next-steps)
+8. [Author](#-author)
+9. [License](#-license)
+
 ## 🚀 Live App
 👉 [Launch the App](https://novicestockplatform.streamlit.app/)
 
