@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="NOVICE STOCK PLATFORM.png" alt="Novice Stock Platform Banner" width="80%">
+</p>
+
 # 🧠📊 Novice Stock Platform - AI-Powered Investment Dashboard
 
 Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps novice investors analyze market sentiment, technical indicators, and fundamental metrics. It brings together data from news, Reddit, technical analysis, and financial fundamentals — wrapped in an intuitive UI.
