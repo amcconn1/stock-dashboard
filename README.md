@@ -12,7 +12,7 @@ Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps
 **Challenge**:  
 Novice investors often struggle to make sense of complex financial data, leading to uninformed or emotional trading decisions. Traditional platforms either oversimplify the analysis or overwhelm users with financial nuances, heavy terminology, or excessive indicators.
 
-The **Novice Stock Platform** bridges this gap by integrating diverse data sources — financial fundamentals, technical indicators, news sentiment, and social media sentiment — into an intuitive, easy-to-understand dashboard.  
+The **Novice Stock Platform** bridges this gap by integrating diverse data sources to include financial fundamentals, technical indicators, news sentiment, and social media sentiment into an intuitive, easy-to-understand dashboard.  
 
 By consolidating these signals into a **composite investment score** and providing interactive visualizations, the platform empowers users to make better-informed trading decisions without requiring deep financial expertise.
 
