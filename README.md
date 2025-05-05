@@ -1,6 +1,5 @@
-![NOVICE STOCK PLATFORM](https://github.com/user-attachments/assets/7de7c442-06e4-4505-9cbc-779941c67e9b)
+![NOVICE STOCK PLATFORM (1)](https://github.com/user-attachments/assets/6d42afba-d043-42d4-9819-2fa8c2e71a42)
 
-# 🧠📊 Novice Stock Platform - AI-Powered Investment Dashboard
 
 Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps novice investors analyze market sentiment, technical indicators, and fundamental metrics. It brings together data from news, Reddit, technical analysis, and financial fundamentals — wrapped in an intuitive UI.
 
