@@ -8,6 +8,13 @@ Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps
 ## 🚀 Live App
 👉 [Launch the App](https://novicestockplatform.streamlit.app/)
 
+## 📌 Problem Statement & Project Overview
+**Challenge**:  
+Novice investors often struggle to make sense of complex financial data, leading to uninformed or emotional trading decisions. Traditional platforms either oversimplify the analysis or overwhelm users with raw data.
+**Solution**:  
+The **Novice Stock Platform** bridges this gap by integrating diverse data sources — financial fundamentals, technical indicators, news sentiment, and social media sentiment — into an intuitive, easy-to-understand dashboard.  
+By consolidating these signals into a **composite investment score** and providing interactive visualizations, the platform empowers users to make better-informed trading decisions without requiring deep financial expertise.
+
 ## 📝 Features
 - **Historical Snapshot**: Composite score over time with trade signals.
 - **Score Breakdown**: Visual deep dive into the fundamental, technical, news, and social sentiment scores.
@@ -22,6 +29,16 @@ Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps
 - Technical indicators (alphavantage api)
 - News sentiment (polygon.io)
 - Reddit sentiment (reddit praw api)
+
+## 🔍 Methodology & Code Access
+The core logic and data processing behind the dashboard were developed and tested in a series of **Colab Notebooks** located in the [`notebooks/`](./notebooks) directory.
+These notebooks cover:
+- Data scraping (Reddit, news, fundamentals, technical indicators)
+- Signal scoring methodologies
+- Composite score calculation
+- Model testing 
+For those seeking to review or extend the data pipeline, the notebooks provide a comprehensive, step-by-step walkthrough of the methodology.
+The final app code is organized within the [`app/`](./app) directory, using **Streamlit** to create a user-friendly web interface.
 
 ## 🖥 Technologies
 - Python (pandas, numpy, plotly, streamlit, asyncpraw)
