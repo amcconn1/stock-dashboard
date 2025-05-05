@@ -9,12 +9,9 @@ Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps
 👉 [Launch the App](https://novicestockplatform.streamlit.app/)
 
 ## 📌 Problem Statement & Project Overview
-**Challenge**:  
-Novice investors often struggle to make sense of complex financial data, leading to uninformed or emotional trading decisions. Traditional platforms either oversimplify the analysis or overwhelm users with financial nuances, heavy terminology, or excessive indicators.
+Since novice investors are constantly bombarded with fragmented financial information and analytical tools, making clear and informed investment decisions challenging. This robust information overload creating confusion and difficulty in formulating effective long-term stock investment strategies. As such, this project proposes an innovative approach by integrating long-term technical analysis, fundamental analysis, and news sentiment with short-term social media sentiment data.
 
-The **Novice Stock Platform** bridges this gap by integrating diverse data sources to include financial fundamentals, technical indicators, news sentiment, and social media sentiment into an intuitive, easy-to-understand dashboard.  
-
-By consolidating these signals into a **composite investment score** and providing interactive visualizations, the platform empowers users to make better-informed trading decisions without requiring deep financial expertise.
+The **Novice Stock Platform** bridges this gap by integrating diverse data sources into an intuitive, easy-to-understand dashboard. By consolidating these signals into a **composite investment score** and providing interactive visualizations, the platform empowers users to make better-informed trading decisions without requiring deep financial expertise.
 
 ## 📝 Features
 - **Historical Snapshot**: Composite score over time with trade signals.
@@ -26,10 +23,10 @@ By consolidating these signals into a **composite investment score** and providi
 - **About**: Learn about the project and methodology.
 
 ## 🗂 Data Sources
-- Financial fundamentals (alphavantage api)
-- Technical indicators (alphavantage api)
-- News sentiment (polygon.io)
-- Reddit sentiment (reddit praw api)
+- Financial fundamentals - 5 years of data (alphavantage api)
+- Technical indicators - 5 years of data (alphavantage api)
+- News sentiment - 5 years of data (polygon.io)
+- Reddit sentiment- 30 days of data (reddit praw api)
 
 ## 🔍 Methodology & Code Access
 The core logic and data processing behind the dashboard were developed and tested in a series of **Colab Notebooks** located in the [`notebooks/`](./notebooks) directory.
