@@ -1,7 +1,4 @@
-[NOVICE STOCK PLATFORM](https://github.com/user-attachments/assets/d81eac75-7b14-4657-893e-785f6d0f75d5)" alt="Novice Stock Platform Banner"
-
-
-
+![NOVICE STOCK PLATFORM](https://github.com/user-attachments/assets/7de7c442-06e4-4505-9cbc-779941c67e9b)
 
 # 🧠📊 Novice Stock Platform - AI-Powered Investment Dashboard
 
