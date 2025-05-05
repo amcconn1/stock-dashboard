@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="NOVICE STOCK PLATFORM.png" alt="Novice Stock Platform Banner" width="80%">
+  <img src="![NOVICE STOCK PLATFORM](https://github.com/user-attachments/assets/d81eac75-7b14-4657-893e-785f6d0f75d5)" alt="Novice Stock Platform Banner" width="80%">
 </p>
 
-![NOVICE STOCK PLATFORM](https://github.com/user-attachments/assets/d81eac75-7b14-4657-893e-785f6d0f75d5)
+
 
 
 # 🧠📊 Novice Stock Platform - AI-Powered Investment Dashboard
