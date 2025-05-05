@@ -1,47 +1,39 @@
-# ?? Stock Dashboard
+# ???? Novice Stock Platform - AI-Powered Investment Dashboard
 
-An interactive Streamlit-based dashboard designed to help novice investors interpret financial data and gain market insight using a composite scoring model.
+Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps novice investors analyze market sentiment, technical indicators, and fundamental metrics. It brings together data from news, Reddit, technical analysis, and financial fundamentals — wrapped in an intuitive UI.
+
+## ?? Live App
+?? [Launch the App]( https://novicestockplatform.streamlit.app/)
 
 ## ?? Features
-- Composite Score View
-- Historical Data Snapshots
-- Score Component Breakdown
-- Social Sentiment Monitoring
-- Trade Strategy Simulator
-- Data Explorer + AI Assistant
+- **Historical Snapshot**: Composite score over time with trade signals.
+- **Score Breakdown**: Visual deep dive into the fundamental, technical, news, and social sentiment scores.
+- **Market Simulator**: Test trading strategies based on your selected signals and capital allocation.
+- **Social Media Sentiment**: Reddit trends and sentiment analysis.
+- **Data Explorer**: View and export the underlying data.
+- **Glossary**: Definitions and explanations of key metrics.
+- **About**: Learn about the project and methodology.
 
-## ?? Scoring Model
-The Composite Score integrates:
-- ?? Fundamental Metrics
-- ?? Technical Indicators
-- ?? News Sentiment
-
-Scores are categorized as:
-- **Buy**: 70–100
-- **Hold**: 40–70
-- **Sell**: 0–40
+## ?? Data Sources
+- Financial fundamentals (Yahoo Finance, etc.)
+- Technical indicators
+- News sentiment
+- Reddit sentiment
 
 ## ?? Technologies
-- Python, Streamlit, Plotly, Pandas
-- NLP tools for sentiment analysis
-- Google Drive CSV data loading
+- Python (pandas, numpy, plotly, streamlit, asyncpraw)
+- Google Colab for data preparation
+- Streamlit Cloud for deployment
+- Git & GitHub for version control
 
-## ?? Run It Locally
-```bash
-git clone https://github.com/YOUR-USERNAME/stock-dashboard.git
-cd stock-dashboard
-pip install -r requirements.txt
-streamlit run Home.py
-```
+## ?? Future Enhancements (Next Steps)
+- Automate data refresh using GitHub Actions or Google Cloud.
+- Extend multi-ticker support (top 5-10 tickers).
+- Integrate AI-driven natural language queries.
+- Build alert system for trading signals.
 
-## ?? Team
-- Mehul Lad — Lead Data Analyst
-- Ashley McConnell — UI/UX
-- Bestover Makoko — Financial Research
+## ????? Author
+Mehul Lad, Ashley McConnell, & Bestover Makoko| UMBC - DATA 606 Capstone
 
-## ?? Acknowledgments
-- UMBC Faculty Advisor: Dr. Masoud Soroush
-- Yahoo Finance, Polygon.io, Reddit APIs
-
-## ? Disclaimer
-This project is for educational use only and not financial advice.
+## ?? License
+MIT License

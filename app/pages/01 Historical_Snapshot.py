@@ -594,7 +594,7 @@ st.markdown("<hr style='margin-top: 40px; margin-bottom: 10px; border: 1px solid
 st.markdown("<div class='section-title'>90-Day Historical Performance</div>", unsafe_allow_html=True)
 
 try:
-    historical_data = df.sort_values("date").tail(90).copy()
+    historical_data = df[df["date"] <= pd.to_datetime(selected_date)].sort_values("date").tail(90).copy()
     
     if len(historical_data) > 1:
         fig = px.line(
@@ -639,7 +639,7 @@ try:
         )
         
         fig.add_hrect(
-            y0=40, y1=70, 
+            y0=40, y1=69, 
             fillcolor="#FFC107", opacity=0.3, 
             line_width=0,
             annotation_text="Hold Zone", 
@@ -649,7 +649,7 @@ try:
         )
         
         fig.add_hrect(
-            y0=0, y1=40, 
+            y0=0, y1=39, 
             fillcolor="#F44336", opacity=0.3, 
             line_width=0,
             annotation_text="Sell Zone", 
