@@ -14,6 +14,7 @@ Since novice investors are constantly bombarded with fragmented financial inform
 The **Novice Stock Platform** bridges this gap by integrating diverse data sources into an intuitive, easy-to-understand dashboard. By consolidating these signals into a **composite investment score** and providing interactive visualizations, the platform empowers users to make better-informed trading decisions without requiring deep financial expertise.
 
 ## 📝 Features
+- **Home - Stock Overview**: Introduction to top discussed stocks and composite score for highest discussed.
 - **Historical Snapshot**: Composite score over time with trade signals.
 - **Score Breakdown**: Visual deep dive into the fundamental, technical, news, and social sentiment scores.
 - **Market Simulator**: Test trading strategies based on your selected signals and capital allocation.
