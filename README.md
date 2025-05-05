@@ -18,10 +18,10 @@ Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps
 - **About**: Learn about the project and methodology.
 
 ## 🗂 Data Sources
-- Financial fundamentals (Yahoo Finance, etc.)
-- Technical indicators
-- News sentiment
-- Reddit sentiment
+- Financial fundamentals (alphavantage api)
+- Technical indicators (alphavantage api)
+- News sentiment (polygon.io)
+- Reddit sentiment (reddit praw api)
 
 ## 🖥 Technologies
 - Python (pandas, numpy, plotly, streamlit, asyncpraw)
