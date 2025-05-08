@@ -18,7 +18,7 @@ Welcome to the **Novice Stock Platform**, a Streamlit-based dashboard that helps
 9. [License](#-license)
 
 ## 🚀 Live App
-👉 [Launch the App](https://novicestockplatform.streamlit.app/)
+👉 [Launch the App](https://novicestockdashboard.streamlit.app/)
 
 ## 📌 Problem Statement & Project Overview
 Since novice investors are constantly bombarded with fragmented financial information and analytical tools, making clear and informed investment decisions challenging. This robust information overload creating confusion and difficulty in formulating effective long-term stock investment strategies. As such, this project proposes an innovative approach by integrating long-term technical analysis, fundamental analysis, and news sentiment with short-term social media sentiment data.
