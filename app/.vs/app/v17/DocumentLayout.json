@@ -1,0 +1,168 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\01 Historical_Snapshot.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\01 Historical_Snapshot.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\03 Trade_Simulator (TEST).py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\03 Trade_Simulator (TEST).py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\99_About.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\99_About.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\03 Trade_Simulator.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\03 Trade_Simulator.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\06 Glossary.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\06 Glossary.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\05 Data Explorer.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\05 Data Explorer.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\02 Score_Breakdown.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\02 Score_Breakdown.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\Home.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Home.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\04 Social_Media_Sentiment.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:pages\\04 Social_Media_Sentiment.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "03 Trade_Simulator (TEST).py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\03 Trade_Simulator (TEST).py",
+              "RelativeDocumentMoniker": "pages\\03 Trade_Simulator (TEST).py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\03 Trade_Simulator (TEST).py",
+              "RelativeToolTip": "pages\\03 Trade_Simulator (TEST).py",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-28T14:35:03.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Home.py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\Home.py",
+              "RelativeDocumentMoniker": "Home.py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\Home.py",
+              "RelativeToolTip": "Home.py",
+              "ViewState": "AgIAAFEBAAAAAAAAAAD4v10BAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-22T21:09:18.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "01 Historical_Snapshot.py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\01 Historical_Snapshot.py",
+              "RelativeDocumentMoniker": "pages\\01 Historical_Snapshot.py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\01 Historical_Snapshot.py",
+              "RelativeToolTip": "pages\\01 Historical_Snapshot.py",
+              "ViewState": "AgIAAFICAAAAAAAAAAAIwFUCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-22T20:28:11.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "02 Score_Breakdown.py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\02 Score_Breakdown.py",
+              "RelativeDocumentMoniker": "pages\\02 Score_Breakdown.py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\02 Score_Breakdown.py",
+              "RelativeToolTip": "pages\\02 Score_Breakdown.py",
+              "ViewState": "AgIAACIBAAAAAAAAAAAAACYBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-22T20:38:18.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "03 Trade_Simulator.py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\03 Trade_Simulator.py",
+              "RelativeDocumentMoniker": "pages\\03 Trade_Simulator.py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\03 Trade_Simulator.py",
+              "RelativeToolTip": "pages\\03 Trade_Simulator.py",
+              "ViewState": "AgIAACUEAAAAAAAAAAAUwDgEAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-22T20:58:59.987Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "04 Social_Media_Sentiment.py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\04 Social_Media_Sentiment.py",
+              "RelativeDocumentMoniker": "pages\\04 Social_Media_Sentiment.py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\04 Social_Media_Sentiment.py",
+              "RelativeToolTip": "pages\\04 Social_Media_Sentiment.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-22T21:20:50.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "05 Data Explorer.py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\05 Data Explorer.py",
+              "RelativeDocumentMoniker": "pages\\05 Data Explorer.py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\05 Data Explorer.py",
+              "RelativeToolTip": "pages\\05 Data Explorer.py",
+              "ViewState": "AgIAACAEAAAAAAAAAAD4vzQEAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-22T21:41:03.999Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "06 Glossary.py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\06 Glossary.py",
+              "RelativeDocumentMoniker": "pages\\06 Glossary.py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\06 Glossary.py",
+              "RelativeToolTip": "pages\\06 Glossary.py",
+              "ViewState": "AgIAALcAAAAAAAAAAAAAALoAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-24T01:08:44.304Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "99_About.py",
+              "DocumentMoniker": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\99_About.py",
+              "RelativeDocumentMoniker": "pages\\99_About.py",
+              "ToolTip": "C:\\Users\\amcco\\Documents\\stock-dashboard\\app\\pages\\99_About.py",
+              "RelativeToolTip": "pages\\99_About.py",
+              "ViewState": "AgIAAHkBAAAAAAAAAAAAAIYBAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-24T01:05:37.887Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
