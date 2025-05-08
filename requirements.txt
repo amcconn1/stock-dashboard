@@ -20,7 +20,7 @@ jsonschema-specifications
 kiwisolver
 MarkupSafe
 matplotlib==3.10.0
-mkl-service==2.4.0
+mkl-service
 mkl_fft
 mkl_random
 narwhals
