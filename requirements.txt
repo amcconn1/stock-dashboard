@@ -1,4 +1,4 @@
-altair
+altair==4.2.2
 attrs
 blinker
 bottleneck
@@ -20,7 +20,7 @@ jsonschema-specifications
 kiwisolver
 MarkupSafe
 matplotlib==3.10.0
-mkl-service
+mkl-service==2.4.0
 mkl_fft
 mkl_random
 narwhals
@@ -43,7 +43,7 @@ requests
 rpds-py
 six
 smmap
-streamlit
+streamlit==1.19.0
 tenacity
 toml
 tornado
