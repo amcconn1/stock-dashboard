@@ -1,4 +1,4 @@
-![NOVICE STOCK PLATFORM (1)](https://github.com/user-attachments/assets/6d42afba-d043-42d4-9819-2fa8c2e71a42)
+﻿![NOVICE STOCK PLATFORM (1)](https://github.com/user-attachments/assets/6d42afba-d043-42d4-9819-2fa8c2e71a42)
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
