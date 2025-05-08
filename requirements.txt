@@ -30,7 +30,7 @@ packaging
 pandas
 pillow
 plotly
-protobuf
+protobuf==3.20.3
 pyarrow
 pydeck
 pyparsing
